@@ -89,7 +89,7 @@ const SwapPage: NextPage = () => {
 
   const { data: reservesData } = useScaffoldReadContract({
     contractName: "SimpleSwap",
-    functionName: "reserves",
+    functionName: "getReserves",
     args:
       isTokenAValid && isTokenBValid && areTokensDifferent
         ? [
