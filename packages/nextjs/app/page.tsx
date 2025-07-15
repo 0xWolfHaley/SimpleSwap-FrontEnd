@@ -31,11 +31,7 @@ const Home: NextPage = () => {
     writeContract, 
     data: hash, 
     isPending: isMintPending,
-    error: mintError
   } = useWriteContract();
-  
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = 
-    useWaitForTransactionReceipt({ hash });
 
   const handleMint = async (tokenContract: any, tokenName: string) => {
     if (!connectedAddress) {
