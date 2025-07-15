@@ -8,6 +8,7 @@ import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteCont
 import { Address } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
+import { MaxUint256 } from "@uniswap/sdk-core";
 
 // ABI básico de ERC20
 const ERC20_ABI = [
@@ -245,12 +246,12 @@ const SwapPage: NextPage = () => {
     const poolInfo = getPoolInfo();
 
     if (!poolInfo?.exists) {
-      notification.error("Pool doesn't exist for this token pair");
+      notification.error("Pool doesn't exist");
       return false;
     }
 
     if (!connectedAddress || !isTokenAValid || !isTokenBValid || !amountIn || !areTokensDifferent) {
-      notification.error("Please fill all fields with valid token addresses");
+      notification.error("Please fill with valid addresses");
       return false;
     }
 
@@ -263,7 +264,7 @@ const SwapPage: NextPage = () => {
 
     // Verificar allowance
     if (needsApproval()) {
-      notification.error("Token allowance insufficient. Please approve first.");
+      notification.error("No token allowance. Approve first.");
       return false;
     }
 
@@ -291,11 +292,11 @@ const SwapPage: NextPage = () => {
       return;
     }
     try {
-      writeContract({
+      await writeContract({
         address: tokenAAddress,
         abi: ERC20_ABI,
         functionName: "approve",
-        args: [simpleSwapInfo.data.address, parseEther(amountIn)],
+        args: [simpleSwapInfo.data.address, parseEther("1000000000")],
       });
     } catch {
       notification.error("Failed to approve token");
@@ -346,7 +347,7 @@ const SwapPage: NextPage = () => {
   // Mostrar notificaciones cuando las transacciones se completen
   useEffect(() => {
     if (isSuccess) {
-      notification.success("Approval completed successfully!");
+      notification.success("Approval completed!");
     }
   }, [isSuccess]);
 
@@ -379,7 +380,7 @@ const SwapPage: NextPage = () => {
             )}
           </div>
         ) : (
-          <p className="text-warning text-sm">{"Pool doesn't exist for this pair"}</p>
+          <p className="text-warning text-sm">{"Pool doesn't exist"}</p>
         )}
       </div>
     );
@@ -565,7 +566,7 @@ const SwapPage: NextPage = () => {
             onChange={e => setAmountOutMin(e.target.value)}
             className="input input-bordered w-full"
           />
-          <p className="text-xs text-gray-600 mt-1">
+          <p className="text-xs text-white-600 mt-1">
             Auto-calculated based on slippage tolerance. You can override this value.
           </p>
         </div>
@@ -619,16 +620,21 @@ const SwapPage: NextPage = () => {
 
         {/* Connected Address */}
         <div className="mb-6 text-center">
-          <p className="text-sm text-gray-600 mb-2">Connected Address:</p>
+          <p className="text-sm text-white-600 mb-2">Connected Address:</p>
           <Address address={connectedAddress} />
         </div>
 
-        {/* Back to Home */}
-        <div className="text-center">
-          <Link href="/" className="link link-primary">
-            ← Back to Home
-          </Link>
-        </div>
+      {/* Back to Home */}
+       <div className="text-center">
+          <Link href="/">
+           <button
+             className="link link-primary btn btn-outline"
+              disabled={isMining}
+                >
+                {isMining ? "Processing..." : "← Back to Home"}
+            </button>
+        </Link>
+       </div>
       </div>
     </div>
   );

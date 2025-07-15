@@ -23,7 +23,6 @@
     "hardhat:check-types": "yarn workspace @se-2/hardhat check-types",
     "hardhat:clean": "yarn workspace @se-2/hardhat clean",
     "hardhat:compile": "yarn workspace @se-2/hardhat compile",
-    "hardhat:coverage": "yarn workspace @se-2/hardhat coverage",
     "hardhat:deploy": "yarn workspace @se-2/hardhat deploy",
     "hardhat:flatten": "yarn workspace @se-2/hardhat flatten",
     "hardhat:fork": "yarn workspace @se-2/hardhat fork",
@@ -51,16 +50,11 @@
     "verify": "yarn hardhat:verify"
   },
   "devDependencies": {
-    "hardhat": "^2.25.0",
     "husky": "~9.1.6",
-    "lint-staged": "~13.2.2",
-    "solidity-coverage": "^0.8.16"
+    "lint-staged": "~13.2.2"
   },
   "packageManager": "yarn@3.2.3",
   "engines": {
     "node": ">=20.18.3"
-  },
-  "dependencies": {
-    "coverage": "^0.4.1"
   }
 }

@@ -7,6 +7,7 @@ import { formatEther, isAddress, parseEther } from "viem";
 import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { useDeployedContractInfo, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
+import { MaxUint256 } from "@uniswap/sdk-core";
 
 // ABI básico de ERC20 (solo las funciones que necesitamos)
 const ERC20_ABI = [
@@ -36,7 +37,7 @@ const ERC20_ABI = [
     outputs: [{ name: "", type: "bool" }],
     stateMutability: "nonpayable",
     type: "function",
-  },
+  }
 ] as const;
 
 const PoolPage: NextPage = () => {
@@ -162,7 +163,7 @@ const PoolPage: NextPage = () => {
         address: tokenAAddress,
         abi: ERC20_ABI,
         functionName: "approve",
-        args: [simpleSwapInfo.data.address, parseEther(amountA)],
+        args: [simpleSwapInfo.data.address, parseEther("1000000000")],
       });
     } catch {
       notification.error("Failed to approve Token A");
@@ -179,7 +180,7 @@ const PoolPage: NextPage = () => {
         address: tokenBAddress,
         abi: ERC20_ABI,
         functionName: "approve",
-        args: [simpleSwapInfo.data.address, parseEther(amountB)],
+        args: [simpleSwapInfo.data.address, parseEther("1000000000")],
       });
     } catch {
       notification.error("Failed to approve Token B");
@@ -279,6 +280,7 @@ const PoolPage: NextPage = () => {
     }
   }, [isSuccess]);
 
+
   return (
     <>
       <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
@@ -286,7 +288,7 @@ const PoolPage: NextPage = () => {
           <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center w-full lg:w-[600px] shadow-xl">
             <h1 className="text-4xl font-bold">Liquidity Pool</h1>
             <p className="text-base-content/60">Add or remove liquidity from the SimpleSwap pool</p>
-
+          
             {/* Tabs */}
             <div className="tabs tabs-boxed mt-6">
               <button className={`tab ${activeTab === "add" ? "tab-active" : ""}`} onClick={() => setActiveTab("add")}>

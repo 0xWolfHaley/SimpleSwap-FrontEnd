@@ -1,3 +1,8 @@
+import { useRef, useState } from "react";
+import { NetworkOptions } from "./NetworkOptions";
+import { getAddress } from "viem";
+import { Address } from "viem";
+import { useDisconnect } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
   ArrowTopRightOnSquareIcon,
@@ -7,13 +12,9 @@ import {
   DocumentDuplicateIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
-import { useRef, useState } from "react";
-import { Address, getAddress } from "viem";
-import { useDisconnect } from "wagmi";
-import { GradientAvatar, isENS } from "~~/components/scaffold-eth";
+import { BlockieAvatar, isENS } from "~~/components/scaffold-eth";
 import { useCopyToClipboard, useOutsideClick } from "~~/hooks/scaffold-eth";
 import { getTargetNetworks } from "~~/utils/scaffold-eth";
-import { NetworkOptions } from "./NetworkOptions";
 
 const allowedNetworks = getTargetNetworks();
 
@@ -49,7 +50,7 @@ export const AddressInfoDropdown = ({
     <>
       <details ref={dropdownRef} className="dropdown dropdown-end leading-3">
         <summary className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 h-auto!">
-          <GradientAvatar address={checkSumAddress} size={30} ensImage={ensAvatar} />
+          <BlockieAvatar address={checkSumAddress} size={30} ensImage={ensAvatar} />
           <span className="ml-2 mr-1">
             {isENS(displayName) ? displayName : checkSumAddress?.slice(0, 6) + "..." + checkSumAddress?.slice(-4)}
           </span>
