@@ -5,7 +5,7 @@ import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
 import { useScaffoldContract } from "~~/hooks/scaffold-eth";
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useWriteContract } from "wagmi";
 import { notification } from "~~/utils/scaffold-eth";
 import { parseEther } from "viem";
 
@@ -28,8 +28,7 @@ const Home: NextPage = () => {
   });
 
   const { 
-    writeContract, 
-    data: hash, 
+    writeContract,  
     isPending: isMintPending,
   } = useWriteContract();
 
