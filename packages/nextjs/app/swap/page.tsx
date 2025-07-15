@@ -8,7 +8,6 @@ import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteCont
 import { Address } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
-import { MaxUint256 } from "@uniswap/sdk-core";
 
 // ABI básico de ERC20
 const ERC20_ABI = [
