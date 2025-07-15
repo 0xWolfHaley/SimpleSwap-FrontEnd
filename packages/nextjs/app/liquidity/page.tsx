@@ -7,7 +7,6 @@ import { formatEther, isAddress, parseEther } from "viem";
 import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { useDeployedContractInfo, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
-import { MaxUint256 } from "@uniswap/sdk-core";
 
 // ABI básico de ERC20 (solo las funciones que necesitamos)
 const ERC20_ABI = [
